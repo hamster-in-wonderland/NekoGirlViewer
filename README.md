@@ -10,6 +10,11 @@
 - Python 3.8+
 
 ## 快速运行
-1. 拉取代码
+拉取代码
 ```bash
 git clone https://github.com/hamster-in-wonderland/NekoGirlViewer/
+```
+下载支持库：
+```bash
+os hamsterTools time requsets Pillow glob json random keyboard
+```
