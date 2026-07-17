@@ -5,6 +5,8 @@
 从nekos.bestAPI上浏览和下载猫娘图片
 通过nuitka编译
 
+灵感来源于NekoGirls
+
 ## 环境要求
 运行项目需要的环境/软件
 - Python 3.8+
