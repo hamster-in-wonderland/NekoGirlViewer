@@ -18,5 +18,5 @@ git clone https://github.com/hamster-in-wonderland/NekoGirlViewer/
 ```
 下载支持库：
 ```bash
-os hamsterTools time requsets Pillow glob json random keyboard
+PySide6 requests
 ```
