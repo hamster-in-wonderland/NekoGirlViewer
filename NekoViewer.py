@@ -1,108 +1,72 @@
-print('导入依赖',end='...',flush=True)
+import sys
+from PySide6.QtWidgets import QApplication, QMainWindow
+from ui_neko import Ui_MainWindow
 import requests
 import json
-import random
 import os
-from PIL import Image
-import keyboard
-import glob
-import time
-import threading
-from hamsterTools.colorfulPrint import *
-time.sleep(0.005)
-print('完成',flush=True)
-
-
-
-print('初始化',end='...',flush=True)
-directory_path = os.path.dirname(os.path.abspath(__file__)).replace('\\','/')+'/'
-os.makedirs(directory_path+'download/',exist_ok=True)
-os.makedirs(directory_path+'temp/',exist_ok=True)
+import re
 requests.packages.urllib3.disable_warnings()
-head = {'User-Agent':'NekoViewerV2 (hamster2010@yeah.net)'}
-filepath = ''
-timer = time.time()-3
-picturenum = 1
-print('完成',flush=True)
 
-
-
-print('配置全局变量',end='...',flush=True)
-def delete_files_in_directory(directory):
-    files = glob.glob(directory + '/*')
-    for file in files:
-        os.remove(file)
-    os.rmdir(directory)
-    return
-version = '2.0'
-versionvisualable = '2.0 stable'
-time.sleep(0.05)
-print('完成',flush=True)
-
-
-print('定义函数',end='...',flush=True)
-def download():
-    with requests.get("https://nekos.best/api/v2/neko",verify=False,headers=head) as response:
-        data = json.loads(response.text)
-    data = data['results'][0]
-    url = data['url']
-    artist = data['artist_name']
-    filename = str(hex(random.randint(0, 16**32-1))[2:])+'.png'
-    global filepath
-    filepath = directory_path+'temp/'+filename
-    with open(filepath,'wb') as file:
-        with requests.get(url,headers=head,verify=False) as picture:
-            file.write(picture.content)
-            info = {'artist':artist,'filepath':filepath}
-    return info
-
-
-def show(event):
-    global filepath
-    global directory_path
-    global timer
-    global picturenum
-    timepast = time.time()-timer
-    if timepast < 3:
-        print(f'请求过于频繁 冷却时间{round(3-timepast,2)}秒')
+class MyWindow(QMainWindow,Ui_MainWindow):
+    pictureUrlList = []
+    head = {'User-Agent':'NekoViewerV2 (hamster_liu@outlook.com)'}
+    idx = -1
+    directory_path = os.path.dirname(os.path.abspath(__file__)).replace('\\','/')+'/'
+    os.makedirs(directory_path+'download/',exist_ok=True)
+    def __init__(self):
+        super(MyWindow, self).__init__()
+        self.setupUi(self)
+        self.webViewer.page().profile().setHttpUserAgent('NekoViewerV3FilledWithQtEdit (hamster_liu@outlook.com)')
+        self.webViewer.setHtml('''<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>喵~</p>
+</body>
+</html>''')
+        self.save.clicked.connect(self.savefunc)
+        self.next.clicked.connect(self.nextfunc)
+        self.last.clicked.connect(self.lastfunc)
+        self.textOutputer.setText('NekoViewer已成功启动')
+    def savefunc(self):
+        if self.idx == -1:
+            self.textOutputer.setText('请先查看一张图片')
+            return
+        url = self.pictureUrlList[self.idx]
+        filename = re.findall('/neko/(.*?).png',url)[0]+'.png'
+        with open(f'{self.directory_path}download/{filename}','wb') as file:
+            with requests.get(url,verify=False,headers=self.head) as response:
+                file.write(response.content)
+        self.textOutputer.setText(f'已保存图片至{self.directory_path}download/{filename}')
         return
-    else:
-        timer = time.time()
-    delete_files_in_directory(directory_path+'temp/')
-    os.makedirs(directory_path+'temp/',exist_ok=True)
-    cprint(f'图片{picturenum}正在加载',color.PURPLE,end='...')
-    info = download()
-    img = Image.open(filepath)
-    img.show(title='NekoViewer')
-    cprint(f'加载完成',color.BULE)
-    print(f'作者{info['artist']}')
-    picturenum += 1
-    return
-def save(event): 
-    global filepath
-    global directory_path
-    try:
-        assert filepath != ''
-    except:
-        print('请先按下空格键')
-    else:
-        img = Image.open(filepath)
-        img.save(filepath.replace('/temp/','/download/'))
-        cprint(f'已保存 {filepath.replace('/temp/','/download/')}',color.RED)
-print('完成',flush=True)
-time.sleep(0.05)
-clearscreen()
-
-
-
-
-if __name__ == '__main__':
-    cprint(f'''猫娘浏览器  version:{versionvisualable}
-                                        By Hamster 喵~
-    ''',color.CYAN)
-    print('按下s保存图片，按下空格切换下一只,关闭窗口以退出')
-
-
-    keyboard.on_press_key('s',callback=save,suppress=True)
-    keyboard.on_press_key('space',callback=show,suppress=True)
-    keyboard.wait()
+    def nextfunc(self):
+        if self.idx == len(self.pictureUrlList)-1:
+            self.textOutputer.setText('正在加载')
+            with requests.get("https://nekos.best/api/v2/neko",verify=False,headers=self.head,timeout=5) as response:
+                data = json.loads(response.text)
+            data = data['results'][0]
+            url = data['url']
+            self.webViewer.setUrl(url)
+            self.pictureUrlList.append(url)
+            self.idx += 1
+            self.textOutputer.setText('加载完成')
+        else:
+            self.idx += 1
+            self.webViewer.setUrl(self.pictureUrlList[self.idx])
+        return
+    def lastfunc(self):
+        if self.idx > 0:
+            self.idx -= 1
+            self.webViewer.setUrl(self.pictureUrlList[self.idx])
+        else:
+            self.textOutputer.setText('已经是最后一张了')
+        return
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = MyWindow()
+    window.show()
+    sys.exit(app.exec())
