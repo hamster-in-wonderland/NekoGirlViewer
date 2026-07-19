@@ -1,4 +1,5 @@
 import sys
+from PySide6.QtCore import QSize
 from PySide6.QtWidgets import QApplication, QMainWindow
 from ui_neko import Ui_MainWindow
 from PySide6.QtGui import QIcon
@@ -13,6 +14,15 @@ class MyWindow(QMainWindow,Ui_MainWindow):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+        }
+        p{
+            color:white;
+            padding: 150px;
+        }
+    </style>
 </head>
 <body>
     <p>喵~</p>
@@ -29,14 +39,19 @@ class MyWindow(QMainWindow,Ui_MainWindow):
         self.setupUi(self)
         self.webViewer.page().profile().setHttpUserAgent('NekoViewerV3FilledWithQtEdit (hamster_liu@outlook.com)')
         self.webViewer.setHtml(self.htmlindex)
-        self.setWindowIcon(QIcon('NekoViewer.ico'))
         self.save.clicked.connect(self.savefunc)
         self.next.clicked.connect(self.nextfunc)
         self.last.clicked.connect(self.lastfunc)
         self.ciallo.triggered.connect(self.ciallofunc)
         self.About_Hamster_label.triggered.connect(self.hamsterfunc)
         self.SavePath.triggered.connect(self.SavePathfunc)
-        self.textOutputer.setText('NekoViewer已成功启动')
+        self.textOutputer.setText('''NekoViewer已成功启动
+
+        
+在菜单栏中选择
+neko > 打开保存路径
+以查看下载的文件''')
+
     def savefunc(self):
         if self.idx == -1:
             self.textOutputer.setText('请先查看一张图片')
