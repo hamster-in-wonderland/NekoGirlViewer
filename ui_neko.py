@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'nekoMxCWHA.ui'
+## Form generated from reading UI file 'nekomfqZBf.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.11.1
 ##
@@ -20,12 +20,16 @@ from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWidgets import (QApplication, QFormLayout, QLabel, QMainWindow,
     QMenu, QMenuBar, QPushButton, QSizePolicy,
     QStatusBar, QTextBrowser, QWidget)
+import resource_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(609, 478)
+        icon = QIcon()
+        icon.addFile(u":/icon/ciallo.ico", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        MainWindow.setWindowIcon(icon)
         self.ciallo = QAction(MainWindow)
         self.ciallo.setObjectName(u"ciallo")
         self.SavePath = QAction(MainWindow)
@@ -36,8 +40,9 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.webViewer = QWebEngineView(self.centralwidget)
         self.webViewer.setObjectName(u"webViewer")
-        self.webViewer.setGeometry(QRect(0, 0, 421, 441))
-        self.webViewer.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.webViewer.setGeometry(QRect(12, 0, 409, 433))
+        self.webViewer.setCursor(QCursor(Qt.CursorShape.ForbiddenCursor))
+        self.webViewer.setMouseTracking(False)
         self.webViewer.setUrl(QUrl(u"about:blank"))
         self.lnto = QLabel(self.centralwidget)
         self.lnto.setObjectName(u"lnto")
@@ -96,7 +101,7 @@ class Ui_MainWindow(object):
         self.ciallo.setText(QCoreApplication.translate("MainWindow", u"Hamster \u55b5~", None))
         self.SavePath.setText(QCoreApplication.translate("MainWindow", u"\u6253\u5f00\u4fdd\u5b58\u8def\u5f84", None))
         self.About_Hamster_label.setText(QCoreApplication.translate("MainWindow", u"About Hamster", None))
-        self.lnto.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">NekoViewer</p><p align=\"right\">By Hamster  \u55b5~</p><p><br/></p><p>version 3.0</p><p><br/></p><p>2026.7.18</p></body></html>", None))
+        self.lnto.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">NekoViewer</p><p align=\"right\">By Hamster \u55b5~</p><p><br/></p><p>version 3.1.1</p><p><br/></p><p>2026.7.18</p></body></html>", None))
         self.last.setText(QCoreApplication.translate("MainWindow", u"\u4e0a\u4e00\u5f20", None))
         self.next.setText(QCoreApplication.translate("MainWindow", u"\u4e0b\u4e00\u5f20", None))
         self.save.setText(QCoreApplication.translate("MainWindow", u"\u4fdd\u5b58\u56fe\u50cf", None))
