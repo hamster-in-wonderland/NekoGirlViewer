@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>778</width>
+    <width>609</width>
     <height>478</height>
    </rect>
   </property>
@@ -19,7 +19,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>591</width>
+      <width>421</width>
       <height>441</height>
      </rect>
     </property>
@@ -35,7 +35,7 @@
    <widget class="QLabel" name="lnto">
     <property name="geometry">
      <rect>
-      <x>600</x>
+      <x>432</x>
       <y>0</y>
       <width>161</width>
       <height>121</height>
@@ -48,7 +48,7 @@
    <widget class="QTextBrowser" name="textOutputer">
     <property name="geometry">
      <rect>
-      <x>600</x>
+      <x>432</x>
       <y>130</y>
       <width>169</width>
       <height>192</height>
@@ -58,7 +58,7 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>600</x>
+      <x>432</x>
       <y>348</y>
       <width>174</width>
       <height>71</height>
@@ -94,7 +94,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>778</width>
+     <width>609</width>
      <height>33</height>
     </rect>
    </property>
