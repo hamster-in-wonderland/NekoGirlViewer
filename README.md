@@ -1,9 +1,10 @@
 # NekoViewer
 一个从nekos.bestAPI上浏览和下载猫娘图片的工具
+喵~
 
 ## 介绍
 从nekos.bestAPI上浏览和下载猫娘图片
-通过nuitka编译
+通过pyinstaller编译
 
 灵感来源于NekoGirls
 
