@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'nekoRzlJzx.ui'
+## Form generated from reading UI file 'nekoMxCWHA.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.11.1
 ##
@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(778, 478)
+        MainWindow.resize(609, 478)
         self.ciallo = QAction(MainWindow)
         self.ciallo.setObjectName(u"ciallo")
         self.SavePath = QAction(MainWindow)
@@ -36,18 +36,18 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.webViewer = QWebEngineView(self.centralwidget)
         self.webViewer.setObjectName(u"webViewer")
-        self.webViewer.setGeometry(QRect(0, 0, 591, 441))
+        self.webViewer.setGeometry(QRect(0, 0, 421, 441))
         self.webViewer.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.webViewer.setUrl(QUrl(u"about:blank"))
         self.lnto = QLabel(self.centralwidget)
         self.lnto.setObjectName(u"lnto")
-        self.lnto.setGeometry(QRect(600, 0, 161, 121))
+        self.lnto.setGeometry(QRect(432, 0, 161, 121))
         self.textOutputer = QTextBrowser(self.centralwidget)
         self.textOutputer.setObjectName(u"textOutputer")
-        self.textOutputer.setGeometry(QRect(600, 130, 169, 192))
+        self.textOutputer.setGeometry(QRect(432, 130, 169, 192))
         self.layoutWidget = QWidget(self.centralwidget)
         self.layoutWidget.setObjectName(u"layoutWidget")
-        self.layoutWidget.setGeometry(QRect(600, 348, 174, 71))
+        self.layoutWidget.setGeometry(QRect(432, 348, 174, 71))
         self.formLayout = QFormLayout(self.layoutWidget)
         self.formLayout.setObjectName(u"formLayout")
         self.formLayout.setContentsMargins(0, 0, 0, 0)
@@ -69,7 +69,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 778, 33))
+        self.menubar.setGeometry(QRect(0, 0, 609, 33))
         self.menuneko = QMenu(self.menubar)
         self.menuneko.setObjectName(u"menuneko")
         self.About = QMenu(self.menubar)
