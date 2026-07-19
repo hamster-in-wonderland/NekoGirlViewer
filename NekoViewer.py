@@ -1,23 +1,13 @@
 import sys
 from PySide6.QtWidgets import QApplication, QMainWindow
 from ui_neko import Ui_MainWindow
-import requests
-import json
-import os
-import re
-requests.packages.urllib3.disable_warnings()
+from PySide6.QtGui import QIcon
+import requests,json,os,re,webbrowser
 
+requests.packages.urllib3.disable_warnings()
+version = '3.1.0'
 class MyWindow(QMainWindow,Ui_MainWindow):
-    pictureUrlList = []
-    head = {'User-Agent':'NekoViewerV2 (hamster_liu@outlook.com)'}
-    idx = -1
-    directory_path = os.path.dirname(os.path.abspath(__file__)).replace('\\','/')+'/'
-    os.makedirs(directory_path+'download/',exist_ok=True)
-    def __init__(self):
-        super(MyWindow, self).__init__()
-        self.setupUi(self)
-        self.webViewer.page().profile().setHttpUserAgent('NekoViewerV3FilledWithQtEdit (hamster_liu@outlook.com)')
-        self.webViewer.setHtml('''<!DOCTYPE html>
+    htmlindex = '''<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -27,10 +17,25 @@ class MyWindow(QMainWindow,Ui_MainWindow):
 <body>
     <p>喵~</p>
 </body>
-</html>''')
+</html>'''
+    pictureUrlList = []
+    head = {'User-Agent':'NekoViewerV2 (hamster_liu@outlook.com)'}
+    idx = -1
+    directory_path = os.path.dirname(os.path.abspath(__file__)).replace('\\','/')+'/'
+    os.makedirs(directory_path+'download/',exist_ok=True)
+    def __init__(self):
+        super(MyWindow, self).__init__()
+        self.setFixedSize(609, 478)
+        self.setupUi(self)
+        self.webViewer.page().profile().setHttpUserAgent('NekoViewerV3FilledWithQtEdit (hamster_liu@outlook.com)')
+        self.webViewer.setHtml(self.htmlindex)
+        self.setWindowIcon(QIcon('NekoViewer.ico'))
         self.save.clicked.connect(self.savefunc)
         self.next.clicked.connect(self.nextfunc)
         self.last.clicked.connect(self.lastfunc)
+        self.ciallo.triggered.connect(self.ciallofunc)
+        self.About_Hamster_label.triggered.connect(self.hamsterfunc)
+        self.SavePath.triggered.connect(self.SavePathfunc)
         self.textOutputer.setText('NekoViewer已成功启动')
     def savefunc(self):
         if self.idx == -1:
@@ -43,6 +48,15 @@ class MyWindow(QMainWindow,Ui_MainWindow):
                 file.write(response.content)
         self.textOutputer.setText(f'已保存图片至{self.directory_path}download/{filename}')
         return
+    def ciallofunc(self):
+        self.textOutputer.append('Hamster：喵~')
+        return
+    def hamsterfunc(self):
+        webbrowser.open('https://space.bilibili.com/3706996599556932')
+        return
+    def SavePathfunc(self):
+        os.system(f'start {self.directory_path}download/')
+        return
     def nextfunc(self):
         if self.idx == len(self.pictureUrlList)-1:
             self.textOutputer.setText('正在加载')
@@ -53,7 +67,7 @@ class MyWindow(QMainWindow,Ui_MainWindow):
             self.webViewer.setUrl(url)
             self.pictureUrlList.append(url)
             self.idx += 1
-            self.textOutputer.setText('加载完成')
+            self.textOutputer.setText('已获取图像url')
         else:
             self.idx += 1
             self.webViewer.setUrl(self.pictureUrlList[self.idx])
